@@ -6,11 +6,11 @@ terraform {
   }
 }
 
-data "json-formatter_format" "example" {
+data "json-formatter_format_json" "example" {
     json = "{\"a\":\"b\",\"myObj\":{\"prop1\":1}}"
     indent = "    "
 }
 
 output "example_output" {
-    value = data.json-formatter_format.example.result
+    value = data.json-formatter_format_json.example.result
 }
