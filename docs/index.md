@@ -23,13 +23,13 @@ This plugin will format / beautify a JSON string.
 ### Example
 
 ```hcl
-data "json-formatter_format" "test" {
+data "json-formatter_format_json" "example" {
     json = "{\"a\":\"b\",\"myObj\":{\"prop1\":1}}"
     indent = "    "
 }
 
-output "test_output" {
-    value = data.json-formatter_format.test.result
+output "example_output" {
+    value = data.json-formatter_format_json.example.result
 }
 ```
 
