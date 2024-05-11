@@ -1,4 +1,4 @@
-module github.com/TheNicholi/terraform-provider-json-formatter
+module github.com/fhioru/terraform-provider-tfutils
 
 go 1.19
 

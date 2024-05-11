@@ -1,20 +1,21 @@
-package json_formatter
+package tfutils
 
 import (
 	"bytes"
 	"context"
 	"encoding/json"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func dataSourceFormatJson() *schema.Resource {
+func dataSourceJsonFormat() *schema.Resource {
 	return &schema.Resource{
 		Description: "Formats / beautifies a given JSON string.",
-		ReadContext: dataSourceFormatJsonRead,
+		ReadContext: dataSourceJsonFormatRead,
 		Schema: map[string]*schema.Schema{
 			"json": {
 				Type:        schema.TypeString,
@@ -22,26 +23,27 @@ func dataSourceFormatJson() *schema.Resource {
 				Required:    true,
 			},
 			"indent": {
-				Type:        schema.TypeString,
-				Description: "The character(s) to use for each indent. The default is two spaces.",
+				Type:        schema.TypeInt,
+				Description: "The number of spaces to use for each indent. The default is two spaces.",
 				Optional:    true,
-				Default:     "  ",
+				Default:     2,
 			},
 			"result": {
 				Type:        schema.TypeString,
 				Description: "A formatted JSON string.",
-				Computed:    true,
+				Optional:    true,
 			},
 		},
 	}
 }
 
-func dataSourceFormatJsonRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	// Warning or errors can be collected in a slice type
+func dataSourceJsonFormatRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	result := &bytes.Buffer{}
 
-	if err := json.Indent(result, []byte(d.Get("json").(string)), "", d.Get("indent").(string)); err != nil {
+	spaces := strings.Repeat(" ", d.Get("indent").(int))
+
+	if err := json.Indent(result, []byte(d.Get("json").(string)), "", spaces); err != nil {
 		return diag.FromErr(err)
 	}
 
@@ -49,7 +51,6 @@ func dataSourceFormatJsonRead(ctx context.Context, d *schema.ResourceData, meta 
 		return diag.FromErr(err)
 	}
 
-	// always run
 	d.SetId(strconv.FormatInt(time.Now().Unix(), 10))
 
 	return diags

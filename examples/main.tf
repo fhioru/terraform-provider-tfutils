@@ -1,16 +1,16 @@
 terraform {
   required_providers {
-    json-formatter = {
-      source = "TheNicholi/json-formatter"
+    tfutils = {
+      source = "fhioru/tfutils"
     }
   }
 }
 
-data "json-formatter_format_json" "example" {
+data "tfutils_json_format" "example" {
     json = "{\"a\":\"b\",\"myObj\":{\"prop1\":1}}"
-    indent = "    "
+    indent = 4
 }
 
 output "example_output" {
-    value = data.json-formatter_format_json.example.result
+    value = data.tfutils_json_format.example.result
 }
