@@ -21,7 +21,7 @@ Formats / beautifies a given JSON string.
 
 ### Optional
 
-- `indent` (String) The character(s) to use for each indent. The default is two spaces.
+- `indent` (Integer) The number of spaces to use for each indent. The default is two spaces.
 
 ### Read-Only
 
