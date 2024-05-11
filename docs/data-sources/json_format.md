@@ -21,11 +21,9 @@ Formats / beautifies a given JSON string.
 
 ### Optional
 
-- `indent` (Integer) The number of spaces to use for each indent. The default is two spaces.
+- `indent` (Number) The number of spaces to use for each indent. The default is two spaces.
+- `result` (String) A formatted JSON string.
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-- `result` (String) A formatted JSON string.
-
-
