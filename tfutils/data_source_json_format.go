@@ -31,7 +31,7 @@ func dataSourceJsonFormat() *schema.Resource {
 			"result": {
 				Type:        schema.TypeString,
 				Description: "A formatted JSON string.",
-				Optional:    true,
+				Computed:    true,
 			},
 		},
 	}
